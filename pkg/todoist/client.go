@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/koki-develop/todoist-reporter/pkg/util"
 	"github.com/pkg/errors"
 )
 
@@ -52,9 +51,6 @@ func (cl *Client) GetResources(types []string) (*Resources, error) {
 	var r Resources
 	if err := json.NewDecoder(resp.Body).Decode(&r); err != nil {
 		return nil, errors.WithStack(err)
-	}
-	if util.Contains(types, "items") {
-		r.Items.Organize()
 	}
 
 	return &r, nil
