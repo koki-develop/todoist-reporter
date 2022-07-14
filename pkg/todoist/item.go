@@ -9,11 +9,22 @@ type Item struct {
 	SectionID int    `json:"section_id"`
 	Content   string `json:"content"`
 	LabelIDs  []int  `json:"labels"`
+	Completed bool
 
 	Children Items
 }
 
 type Items []*Item
+
+func (items Items) FilterOnlyRoot() Items {
+	var rtn Items
+	for _, item := range items {
+		if item.ParentID == nil {
+			rtn = append(rtn, item)
+		}
+	}
+	return rtn
+}
 
 func (items Items) FilterByProjectID(id int) Items {
 	var rtn Items
