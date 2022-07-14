@@ -10,6 +10,8 @@ type Item struct {
 	Content   string   `json:"content"`
 	LabelIDs  []int    `json:"labels"`
 	Due       *ItemDue `json:"due"`
+
+	Children Items
 }
 
 type ItemDue struct {
@@ -39,4 +41,26 @@ func (items Items) FilterByLabelIDs(ids []int) Items {
 		}
 	}
 	return rtn
+}
+
+func (items Items) Organize() {
+	for _, item := range items {
+		for _, child := range items {
+			if child.ParentID == nil {
+				continue
+			}
+			if *child.ParentID != item.ID {
+				continue
+			}
+			item.Children = append(item.Children, child)
+		}
+	}
+
+	var after Items
+	for _, item := range items {
+		if item.ParentID == nil {
+			after = append(after, item)
+		}
+	}
+	items = after
 }
