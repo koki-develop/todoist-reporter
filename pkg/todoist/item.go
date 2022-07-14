@@ -33,11 +33,9 @@ func (items Items) FilterByProjectID(id int) Items {
 func (items Items) FilterByLabelIDs(ids []int) Items {
 	var rtn Items
 	for _, item := range items {
-		for _, id := range ids {
-			if util.Contains(item.LabelIDs, id) {
-				rtn = append(rtn, item)
-				continue
-			}
+		if util.ContainsAny(item.LabelIDs, ids) {
+			rtn = append(rtn, item)
+			continue
 		}
 	}
 	return rtn
