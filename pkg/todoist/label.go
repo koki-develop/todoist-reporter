@@ -6,3 +6,12 @@ type Label struct {
 }
 
 type Labels []*Label
+
+func (labels Labels) FindByID(id int) *Label {
+	for _, label := range labels {
+		if label.ID == id {
+			return label
+		}
+	}
+	return nil
+}
