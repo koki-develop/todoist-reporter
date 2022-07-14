@@ -30,12 +30,33 @@ func (items Items) FilterByProjectID(id int) Items {
 	return rtn
 }
 
+func (items Items) FilterByLabelID(id int) Items {
+	var rtn Items
+	for _, item := range items {
+		if util.Contains(item.LabelIDs, id) {
+			rtn = append(rtn, item)
+			continue
+		}
+	}
+	return rtn
+}
+
 func (items Items) FilterByLabelIDs(ids []int) Items {
 	var rtn Items
 	for _, item := range items {
 		if util.ContainsAny(item.LabelIDs, ids) {
 			rtn = append(rtn, item)
 			continue
+		}
+	}
+	return rtn
+}
+
+func (items Items) FilterBySectionID(id int) Items {
+	var rtn Items
+	for _, item := range items {
+		if item.SectionID == id {
+			rtn = append(rtn, item)
 		}
 	}
 	return rtn
