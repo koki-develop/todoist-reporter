@@ -2,6 +2,19 @@ package todoist
 
 import "github.com/koki-develop/todoist-reporter/pkg/util"
 
+type getCompletedItemsResponse struct {
+	Items []*completedTask
+}
+
+type completedTask struct {
+	TaskID  int    `json:"task_id"`
+	Content string `json:"content"`
+}
+
+type getItemInfoResponse struct {
+	Item *Item `json:"item"`
+}
+
 type Item struct {
 	ID        int    `json:"id"`
 	ParentID  *int   `json:"parent_id"`
