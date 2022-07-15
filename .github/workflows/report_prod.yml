@@ -1,0 +1,19 @@
+name: report (prod)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
+        with:
+          go-version: "1.18.4"
+          cache: true
+      - name: create config.json
+        run: echo '${{ secrets.CONFIG_JSON }}' > config.json
+      - name: report
+        run: go run ./main.go
