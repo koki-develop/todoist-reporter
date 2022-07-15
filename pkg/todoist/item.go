@@ -16,6 +16,26 @@ type Item struct {
 
 type Items []*Item
 
+func (items Items) FilterOnlyIncompleted() Items {
+	var rtn Items
+	for _, item := range items {
+		if !item.Completed {
+			rtn = append(rtn, item)
+		}
+	}
+	return rtn
+}
+
+func (items Items) FilterOnlyCompleted() Items {
+	var rtn Items
+	for _, item := range items {
+		if item.Completed {
+			rtn = append(rtn, item)
+		}
+	}
+	return rtn
+}
+
 func (items Items) FilterOnlyRoot() Items {
 	var rtn Items
 	for _, item := range items {
@@ -81,11 +101,5 @@ func (items Items) Organize() {
 		}
 	}
 
-	var after Items
-	for _, item := range items {
-		if item.ParentID == nil {
-			after = append(after, item)
-		}
-	}
-	items = after
+	items = items.FilterOnlyRoot()
 }
