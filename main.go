@@ -39,7 +39,7 @@ func main() {
 	r.Items = r.Items.FilterByLabelIDs(cfg.TodoistLabelIDs)
 	r.Labels = r.Labels.FilterByIDs(cfg.TodoistLabelIDs)
 
-	completed := r.Items.FilterOnlyCompleted()
+	completed := r.Items.FilterOnlyCompleted().ExcludeBySectionID(cfg.TodoistExcludeSectionID)
 	wip := r.Items.FilterBySectionID(cfg.TodoistWipSectionID).FilterOnlyIncompleted()
 	waiting := r.Items.FilterBySectionID(cfg.TodoistWaitingSectionID).FilterOnlyIncompleted().FilterOnlyRoot()
 

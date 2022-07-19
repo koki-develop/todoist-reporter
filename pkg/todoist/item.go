@@ -29,6 +29,16 @@ type Item struct {
 
 type Items []*Item
 
+func (items Items) ExcludeBySectionID(id int) Items {
+	var rtn Items
+	for _, item := range items {
+		if item.SectionID != id {
+			rtn = append(rtn, item)
+		}
+	}
+	return rtn
+}
+
 func (items Items) FilterOnlyIncompleted() Items {
 	var rtn Items
 	for _, item := range items {

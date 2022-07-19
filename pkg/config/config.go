@@ -15,6 +15,7 @@ type Config struct {
 	TodoistProjectID        int    `json:"todoist_project_id"`
 	TodoistWipSectionID     int    `json:"todoist_wip_section_id"`
 	TodoistWaitingSectionID int    `json:"todoist_waiting_section_id"`
+	TodoistExcludeSectionID int    `json:"todoist_exclude_section_id"`
 }
 
 func Load() (*Config, error) {
